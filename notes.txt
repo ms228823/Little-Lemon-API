@@ -1,0 +1,53 @@
+Superuser credentials:
+Username: admin
+Password: Admin123!
+
+Manager user:
+Username: manager
+Password: ygBFtS4ws7zw@jX
+
+Delivery crew user:
+Username: delivery
+Password: ySf!5ReP8sBqZ4V
+
+Customer user:
+Username: customer
+Password: RmXRs9@zJMYrCkF
+
+Tested endpoints:
+
+- Admin:
+  - Can log in at /admin/
+  - Can add menu items, categories
+  - Can assign users to Manager group via POST /api/users/manager/ with {"username": "manager"}
+
+- Manager:
+  - Can log in and assign delivery crew via POST /api/users/delivery-crew/ with {"username": "delivery"}
+  - Can set 'item of the day' manually in admin panel or extend model if needed
+
+- Delivery Crew:
+  - Can log in and see orders assigned to them at /api/orders/
+  - Can update order status via PATCH /api/orders/<order_id>/update/
+
+- Customers:
+  - Can register via Djoser at /auth/users/
+  - Can log in via /auth/token/login/
+  - Can view categories, menu items
+  - Can filter/paginate/sort menu items with:
+    - `/api/menu-items/?category=<name>`
+    - `/api/menu-items/?ordering=price`
+  - Can add items to cart via POST /api/cart/
+  - Can place order via POST /api/orders/
+  - Can view their orders at /api/orders/
+
+Setup instructions:
+
+1. Unzip the folder
+2. Open terminal:
+   ```bash
+   cd LittleLemon
+   pipenv shell
+   pipenv install
+   python manage.py makemigrations
+   python manage.py migrate
+   python manage.py runserver
